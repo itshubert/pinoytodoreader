@@ -4,5 +4,5 @@ public sealed record TaskModel(
     Guid Id,
     string Title,
     bool IsCompleted,
-    DateTime? CompletionTime
+    DateTimeOffset? CompletionTime
 );

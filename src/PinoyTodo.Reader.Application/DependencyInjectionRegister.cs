@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Mapster;
+using Microsoft.Extensions.DependencyInjection;
 using PinoyCleanArch;
 
 namespace PinoyTodo.Reader.Application;

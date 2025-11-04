@@ -13,6 +13,7 @@ using PinoyTodo.Reader.Infrastructure.Messaging;
 using PinoyTodo.Reader.Infrastructure.Messaging.EventProcessors;
 using PinoyTodo.Reader.Infrastructure.Messaging.Events;
 using PinoyTodo.Reader.Infrastructure.Persistence;
+using PinoyTodo.Reader.Infrastructure.Persistence.Repositories;
 
 namespace PinoyTodo.Reader.Infrastructure;
 
@@ -58,6 +59,8 @@ public static partial class DependencyInjectionRegister
         });
 
         services.AddSqsMessageProcessors(configuration);
+
+        services.AddScoped<ITaskRepository, TaskRepository>();
         return services;
     }
 
