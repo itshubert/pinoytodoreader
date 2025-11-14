@@ -1,6 +1,6 @@
-namespace PinoyTodo.Reader.Application.Common.Models;
+﻿namespace PinoyTodo.Reader.Contracts;
 
-public sealed record TaskModel(
+public sealed record TaskResponse(
     Guid Id,
     string Title,
     bool IsCompleted,

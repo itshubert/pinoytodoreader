@@ -9,13 +9,15 @@ COPY src/PinoyTodo.Reader.Application/PinoyTodo.Reader.Application.csproj ./src/
 COPY src/PinoyTodo.Reader.Contracts/PinoyTodo.Reader.Contracts.csproj ./src/PinoyTodo.Reader.Contracts/
 COPY src/PinoyTodo.Reader.Domain/PinoyTodo.Reader.Domain.csproj ./src/PinoyTodo.Reader.Domain/
 COPY src/PinoyTodo.Reader.Infrastructure/PinoyTodo.Reader.Infrastructure.csproj ./src/PinoyTodo.Reader.Infrastructure/
-#COPY PinoyCleanArch.0.0.4.nupkg /PinoyPackages/PinoyCleanArch.0.0.4.nupkg
-COPY PinoyPackages/ /PinoyPackages/
-RUN ls /PinoyPackages
 
-# Restore NuGet packages
-# RUN dotnet restore PinoyTodo.Reader.sln
-RUN dotnet restore --source "/PinoyPackages" --source "https://api.nuget.org/v3/index.json"
+# Restore NuGet packages using build secrets
+# The secrets will be mounted at runtime and not stored in the image layers
+RUN --mount=type=secret,id=github_username \
+    --mount=type=secret,id=github_token \
+    dotnet nuget add source https://nuget.pkg.github.com/itshubert/index.json \
+    --username "$(cat /run/secrets/github_username)" \
+    --password "$(cat /run/secrets/github_token)" \
+    --store-password-in-clear-text --name itshubert
 
 
 # Copy the entire source code
