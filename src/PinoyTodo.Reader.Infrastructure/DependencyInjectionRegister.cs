@@ -29,19 +29,23 @@ public static partial class DependencyInjectionRegister
 
         services.AddInfrastructure();
 
+        services.Configure<AWSSettings>(configuration.GetSection("AWS"));
         services.AddSingleton<IAmazonSQS>(sp =>
         {
             var logger = sp.GetRequiredService<ILogger<IAmazonSQS>>();
-            var useLocalStack = configuration.GetValue<bool>("AWS:UseLocalStack");
+            var awsSettings = sp.GetRequiredService<IOptions<AWSSettings>>().Value;
 
-            if (useLocalStack)
+            if (awsSettings.UseLocalStack)
             {
-                var serviceUrl = configuration["AWS:LocalStack:ServiceUrl"] ?? "http://localhost:4566";
+                var serviceUrl = !string.IsNullOrEmpty(awsSettings.ServiceUrl) ? awsSettings.ServiceUrl : "http://localhost:4566";
+
+                logger.LogInformation("Configuring AmazonSQSClient for LocalStack at {ServiceUrl}", serviceUrl);
+
                 var config = new AmazonSQSConfig { ServiceURL = serviceUrl };
                 return new AmazonSQSClient(new AnonymousAWSCredentials(), config);
             }
 
-            var region = configuration["AWS:Region"] ?? Environment.GetEnvironmentVariable("AWS_REGION") ?? "us-east-1";
+            var region = awsSettings.Region ?? "us-east-1";
             logger.LogInformation("Configuring AmazonSQSClient for AWS region {Region}", region);
             var profileName = Environment.GetEnvironmentVariable("AWS_PROFILE");
 

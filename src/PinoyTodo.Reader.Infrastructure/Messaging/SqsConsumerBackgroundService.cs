@@ -49,6 +49,7 @@ public sealed class SqsConsumerBackgroundService<TEvent, TProcessor> : Backgroun
             while (!stoppingToken.IsCancellationRequested)
             {
                 // Poll for messages from the queue
+                _logger.LogDebug("Polling messages from SQS: {QueueUrl}", _queueUrl);
                 var messages = await _sqs.ReceiveMessageAsync(new ReceiveMessageRequest
                 {
                     QueueUrl = _queueUrl,
