@@ -1,6 +1,6 @@
 using ErrorOr;
 
-namespace GeminiOrderFulfillment.Domain.Common.Errors;
+namespace PinoyTodo.Reader.Domain.Common.Errors;
 
 public static partial class Errors
 {

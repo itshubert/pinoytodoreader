@@ -54,8 +54,8 @@ public sealed class SqsConsumerBackgroundService<TEvent, TProcessor> : Backgroun
                 {
                     QueueUrl = _queueUrl,
                     MaxNumberOfMessages = 10,
-                    WaitTimeSeconds = 20,
-                    VisibilityTimeout = 30
+                    WaitTimeSeconds = 10,
+                    VisibilityTimeout = 20
                 }, stoppingToken);
 
                 if (messages.Messages is null)

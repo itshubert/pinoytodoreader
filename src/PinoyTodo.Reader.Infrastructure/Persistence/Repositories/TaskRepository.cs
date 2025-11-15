@@ -30,4 +30,10 @@ public sealed class TaskRepository : BaseRepository, ITaskRepository
         Context.Tasks.Update(task);
         await SaveChangesAsync(cancellationToken);
     }
+
+    public async Task DeleteAsync(Domain.TaskAggregate.Task task, CancellationToken cancellationToken)
+    {
+        Context.Tasks.Remove(task);
+        await SaveChangesAsync(cancellationToken);
+    }
 }

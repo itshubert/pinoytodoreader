@@ -1,10 +1,10 @@
 using ErrorOr;
-using GeminiOrderFulfillment.Domain.Common.Errors;
 using MapsterMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using PinoyTodo.Reader.Application.Common.Interfaces;
 using PinoyTodo.Reader.Application.Common.Models;
+using PinoyTodo.Reader.Domain.Common.Errors;
 
 namespace PinoyTodo.Reader.Application.Tasks.Commands;
 
