@@ -82,6 +82,11 @@ public static partial class DependencyInjectionRegister
             return sp.GetRequiredService<IOptions<QueueSettings>>().Value.TaskCompleted ?? throw new InvalidOperationException("TaskCompleted queue URL is not configured.");
         });
 
+        services.AddMessaging<TaskTitleUpdatedEvent, TaskTitleUpdatedEventProcessor>(sp =>
+        {
+            return sp.GetRequiredService<IOptions<QueueSettings>>().Value.TaskTitleUpdated ?? throw new InvalidOperationException("TaskUpdated queue URL is not configured.");
+        });
+
         services.AddMessaging<TaskDeletedEvent, TaskDeletedEventProcessor>(sp =>
         {
             return sp.GetRequiredService<IOptions<QueueSettings>>().Value.TaskDeleted ?? throw new InvalidOperationException("TaskDeleted queue URL is not configured.");

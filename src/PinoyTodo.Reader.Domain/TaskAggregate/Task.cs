@@ -38,4 +38,9 @@ public sealed class Task : AggregateRoot<Guid>
     {
         IsCompleted = true;
     }
+
+    public void UpdateTitle(string newTitle)
+    {
+        Title = newTitle;
+    }
 }
