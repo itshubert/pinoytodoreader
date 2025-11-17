@@ -1,0 +1,16 @@
+{
+  "name": ".NET Development Environment",
+  "image": "mcr.microsoft.com/dotnet/sdk:9.0",
+  "features": {
+    // Add any desired features like Git, Node.js, etc.
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.csdevkit"
+      ]
+    }
+  },
+  "postCreateCommand": "dotnet restore"
+}
